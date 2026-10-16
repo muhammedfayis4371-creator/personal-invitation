@@ -167,7 +167,7 @@ export default function AttendanceSection({ onOpenQr }) {
   return (
     <section 
       id="attendance" 
-      className="relative w-full min-h-[100dvh] bg-[#FAF7F2] text-[#3E2723] px-6 py-14 border-t border-[#E8DDD0] overflow-hidden flex flex-col justify-center"
+      className="relative w-full bg-[#FAF7F2] text-[#3E2723] px-6 py-14 border-t border-[#E8DDD0] overflow-hidden"
     >
       {/* Decorative Arabesque Corners */}
       <ArabesqueCorner position="top-left" size={60} color="#C8A882" />

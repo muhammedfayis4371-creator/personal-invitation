@@ -13,14 +13,13 @@ export default function App() {
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [isCountdownModalOpen, setIsCountdownModalOpen] = useState(false);
   const [isDatePopped, setIsDatePopped] = useState(false);
-  const [isRevealed, setIsRevealed] = useState(false);
 
   // Activate luxury scroll reveal observer
   useScrollReveal();
 
   const handleRevealDate = () => {
-    setIsRevealed(true);
     setIsDatePopped(true);
+    setIsCountdownModalOpen(true);
 
     // Trigger celebratory confetti burst
     try {
@@ -50,13 +49,11 @@ export default function App() {
       console.warn('Confetti error', e);
     }
 
-    // Smoothly scroll down to itinerary section after revealing
-    setTimeout(() => {
-      const el = document.getElementById('itinerary');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 150);
+    // Also scroll down to itinerary so when modal closes, user is right at the countdown
+    const el = document.getElementById('itinerary');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const scrollToAttendance = () => {
@@ -75,12 +72,12 @@ export default function App() {
       </div>
 
       {/* Luxury Reading Progress Line pinned to the top of mobile screen */}
-      {isRevealed && <LuxuryScrollProgress />}
+      <LuxuryScrollProgress />
 
       {/* Mobile-First Container (Max-Width 430px centered on desktop) */}
       <main 
         id="wedding-app-container"
-        className={`relative w-full max-w-[430px] min-h-screen ${isRevealed ? 'bg-[#FAF7F2]' : 'bg-[#180f0a]'} sm:rounded-[36px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.65)] sm:border-[8px] sm:border-[#2D1B13] overflow-hidden flex flex-col transition-colors duration-500`}
+        className="relative w-full max-w-[430px] min-h-screen bg-[#FAF7F2] sm:rounded-[36px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.65)] sm:border-[8px] sm:border-[#2D1B13] overflow-hidden flex flex-col"
       >
         {/* Subtle decorative phone notch indicator on desktop */}
         <div className="hidden sm:block absolute top-2 inset-x-0 mx-auto w-28 h-4 bg-[#2D1B13] rounded-full z-30 opacity-90" />
@@ -90,30 +87,27 @@ export default function App() {
             ======================================================== */}
         <HeroSection 
           onRevealDate={handleRevealDate} 
-          isRevealed={isRevealed}
         />
 
         {/* ========================================================
-            PAGE 2 & 3: Revealed only when user clicks "Reveal the Date"
+            PAGE 2: Date & Time with Countdown & Itinerary
             ======================================================== */}
-        {isRevealed && (
-          <div className="w-full animate-fadeIn">
-            {/* PAGE 2: Date & Time with Countdown & Itinerary */}
-            <CountdownItinerarySection 
-              onScrollToAttendance={scrollToAttendance} 
-              isPopped={isDatePopped}
-            />
+        <CountdownItinerarySection 
+          onScrollToAttendance={scrollToAttendance} 
+          isPopped={isDatePopped}
+        />
 
-            {/* PAGE 3: Attendance (Branching: Attending reveals Location; Otherwise reveals Wishing Page) */}
-            <AttendanceSection onOpenQr={() => setIsQrOpen(true)} />
+        {/* ========================================================
+            PAGE 3: Attendance (Branching: Attending reveals Location;
+            Otherwise reveals Wishing Page)
+            ======================================================== */}
+        <AttendanceSection onOpenQr={() => setIsQrOpen(true)} />
 
-            {/* Extra bottom padding so content isn't obscured by sticky bottom navigation */}
-            <div className="h-16 w-full bg-[#FAF7F2]" />
+        {/* Extra bottom padding so content isn't obscured by sticky bottom navigation */}
+        <div className="h-16 w-full bg-[#FAF7F2]" />
 
-            {/* Clean Sticky Bottom Navigation Bar [Card | Date & Time | Attendance] */}
-            <BottomNav />
-          </div>
-        )}
+        {/* Clean Sticky Bottom Navigation Bar [Card | Date & Time | Attendance] */}
+        <BottomNav />
       </main>
 
       {/* Date & Countdown Pop Modal */}
