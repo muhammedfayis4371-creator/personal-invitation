@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
+import { Analytics } from '@vercel/analytics/react';
 import HeroSection from './components/HeroSection';
 import CountdownItinerarySection from './components/CountdownItinerarySection';
 import AttendanceSection from './components/AttendanceSection';
@@ -122,6 +123,9 @@ export default function App() {
         isOpen={isQrOpen}
         onClose={() => setIsQrOpen(false)}
       />
+
+      {/* Vercel Web Analytics */}
+      <Analytics />
     </div>
   );
 }
