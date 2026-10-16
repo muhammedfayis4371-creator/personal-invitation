@@ -7,14 +7,11 @@ import VenueQrModal from './components/VenueQrModal';
 import DateCountdownModal from './components/DateCountdownModal';
 import BottomNav from './components/BottomNav';
 import LuxuryScrollProgress from './components/LuxuryScrollProgress';
-import FallingLoveEffect from './components/FallingLoveEffect';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 export default function App() {
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [isCountdownModalOpen, setIsCountdownModalOpen] = useState(false);
-  const [isFallingLove, setIsFallingLove] = useState(true);
-  const [loveBurstCount, setLoveBurstCount] = useState(0);
   const [isDatePopped, setIsDatePopped] = useState(false);
   const [isRevealed, setIsRevealed] = useState(false);
 
@@ -24,7 +21,6 @@ export default function App() {
   const handleRevealDate = () => {
     setIsRevealed(true);
     setIsDatePopped(true);
-    setLoveBurstCount((prev) => prev + 1);
 
     // Trigger celebratory confetti burst
     try {
@@ -63,16 +59,6 @@ export default function App() {
     }, 150);
   };
 
-  const handleToggleFallingLove = () => {
-    setIsFallingLove((prev) => {
-      const next = !prev;
-      if (next) {
-        setLoveBurstCount((c) => c + 1);
-      }
-      return next;
-    });
-  };
-
   const scrollToAttendance = () => {
     const el = document.getElementById('attendance');
     if (el) {
@@ -82,9 +68,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#1c130d] text-[#3E2723] flex items-center justify-center p-0 sm:py-8 sm:px-4 font-sans selection:bg-[#C8A882]/30 selection:text-[#3E2723]">
-      {/* Falling Love Romantic Particles Effect */}
-      <FallingLoveEffect isActive={isFallingLove} burst={loveBurstCount} />
-
       {/* Background ambient lighting for desktop framing */}
       <div className="fixed inset-0 pointer-events-none opacity-40 overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[#C8A882]/10 rounded-full blur-[140px] animate-pulse" />
@@ -107,8 +90,6 @@ export default function App() {
             ======================================================== */}
         <HeroSection 
           onRevealDate={handleRevealDate} 
-          isFallingLove={isFallingLove}
-          onToggleFallingLove={handleToggleFallingLove}
           isRevealed={isRevealed}
         />
 
