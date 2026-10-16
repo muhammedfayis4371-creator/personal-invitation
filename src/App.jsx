@@ -97,7 +97,7 @@ export default function App() {
       {/* Mobile-First Container (Max-Width 430px centered on desktop) */}
       <main 
         id="wedding-app-container"
-        className="relative w-full max-w-[430px] min-h-screen bg-[#FAF7F2] sm:rounded-[36px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.65)] sm:border-[8px] sm:border-[#2D1B13] overflow-hidden flex flex-col"
+        className={`relative w-full max-w-[430px] min-h-screen ${isRevealed ? 'bg-[#FAF7F2]' : 'bg-[#180f0a]'} sm:rounded-[36px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.65)] sm:border-[8px] sm:border-[#2D1B13] overflow-hidden flex flex-col transition-colors duration-500`}
       >
         {/* Subtle decorative phone notch indicator on desktop */}
         <div className="hidden sm:block absolute top-2 inset-x-0 mx-auto w-28 h-4 bg-[#2D1B13] rounded-full z-30 opacity-90" />

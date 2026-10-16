@@ -5,104 +5,126 @@ import AudioPlayerButton from './AudioPlayerButton';
 export default function HeroSection({ 
   onRevealDate, 
   isFallingLove = true, 
-  onToggleFallingLove 
+  onToggleFallingLove,
+  isRevealed = false
 }) {
   return (
     <section 
       id="hero" 
-      className="relative w-full min-h-[100dvh] h-[100dvh] overflow-hidden select-none bg-[#261710] flex flex-col items-center justify-between"
+      className="relative w-full h-[100dvh] min-h-[100dvh] max-h-[100dvh] overflow-hidden select-none bg-gradient-to-b from-[#180f0a] via-[#241711] to-[#120a06] flex flex-col justify-between items-center p-2.5 sm:p-4"
     >
-      {/* Container restricted to mobile frame max-w-[430px] */}
-      <div className="relative w-full max-w-[430px] h-full flex flex-col items-center justify-between">
-        {/* The Exact User-Provided Wedding Invitation Image */}
-        <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-          <img 
-            src="/hero_invitation.jpg" 
-            alt="Wedding of Fathimathul Fida ♡ Akhib" 
-            className="w-full h-full object-contain select-none"
-            draggable="false"
+      {/* Ambient background gold dust sparkles */}
+      <div className="absolute top-[18%] left-[8%] pointer-events-none animate-pulse opacity-60">
+        <span className="text-[#FBF5B7] text-xs">✦</span>
+      </div>
+      <div className="absolute top-[38%] right-[8%] pointer-events-none animate-pulse delay-300 opacity-70">
+        <span className="text-[#D4AF37] text-sm">✦</span>
+      </div>
+      <div className="absolute top-[62%] left-[10%] pointer-events-none animate-pulse delay-700 opacity-60">
+        <span className="text-[#C8A882] text-xs">✧</span>
+      </div>
+      <div className="absolute bottom-[16%] right-[12%] pointer-events-none animate-pulse delay-500 opacity-60">
+        <span className="text-[#FBF5B7] text-xs">✦</span>
+      </div>
+
+      {/* Top Header Bar: Love Effect Toggle + Audio Player */}
+      <header className="w-full max-w-[400px] flex items-center justify-between z-30 pt-1 px-1">
+        {/* Quick Falling Love Effect Toggle placed at top left */}
+        <button
+          onClick={onToggleFallingLove}
+          id="top-falling-love-btn"
+          type="button"
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full backdrop-blur-md transition-all duration-300 shadow-md text-xs font-sans cursor-pointer ${
+            isFallingLove
+              ? 'bg-[#2A1810]/95 text-[#FDFBF7] border border-[#D4AF37]/70 ring-1 ring-[#FF69B4]/40 shadow-[0_2px_12px_rgba(255,105,180,0.3)]'
+              : 'bg-[#FDFBF7]/90 text-[#5D4037] border border-[#C8A882]/40 hover:bg-[#FDFBF7]'
+          }`}
+          title={isFallingLove ? "Turn off Falling Love effect" : "Turn on Falling Love effect"}
+          aria-label="Toggle falling love hearts effect"
+        >
+          <Heart 
+            className={`w-3.5 h-3.5 transition-transform duration-300 ${
+              isFallingLove ? 'text-[#FF69B4] fill-[#FF69B4] scale-110 animate-pulse' : 'text-[#8D6E63]'
+            }`} 
           />
+          <span className="text-[11px] font-medium tracking-wide">
+            {isFallingLove ? 'Love Effect' : 'Love Off'}
+          </span>
+        </button>
+
+        {/* Mini Luxury Tag */}
+        <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#2E1A12]/80 border border-[#D4AF37]/30 text-[10px] text-[#E8D3B0] tracking-widest uppercase font-serif backdrop-blur-xs shadow-xs">
+          <span className="text-[#D4AF37]">✦</span>
+          <span>Wedding Invitation</span>
+          <span className="text-[#D4AF37]">✦</span>
         </div>
 
         {/* Ambient Nasheed Audio Toggle placed seamlessly at top right */}
-        <div className="absolute top-4 right-4 z-20">
-          <AudioPlayerButton className="shadow-lg backdrop-blur-md bg-[#261710]/80 border-[#C8A882]/60 text-[#FAF7F2]" />
-        </div>
+        <AudioPlayerButton className="shadow-lg backdrop-blur-md bg-[#261710]/90 border-[#C8A882]/60 text-[#FAF7F2]" />
+      </header>
 
-        {/* Quick Falling Love Effect Toggle placed at top left */}
-        <div className="absolute top-4 left-4 z-20">
-          <button
-            onClick={onToggleFallingLove}
-            id="top-falling-love-btn"
-            type="button"
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full backdrop-blur-md transition-all duration-300 shadow-md text-xs font-sans cursor-pointer ${
-              isFallingLove
-                ? 'bg-[#2A1810]/90 text-[#FDFBF7] border border-[#D4AF37]/70 ring-1 ring-[#FF69B4]/40 shadow-[0_2px_12px_rgba(255,105,180,0.3)]'
-                : 'bg-[#FDFBF7]/85 text-[#5D4037] border border-[#C8A882]/40 hover:bg-[#FDFBF7]'
-            }`}
-            title={isFallingLove ? "Turn off Falling Love effect" : "Turn on Falling Love effect"}
-            aria-label="Toggle falling love hearts effect"
-          >
-            <Heart 
-              className={`w-3.5 h-3.5 transition-transform duration-300 ${
-                isFallingLove ? 'text-[#FF69B4] fill-[#FF69B4] scale-110 animate-pulse' : 'text-[#8D6E63]'
-              }`} 
-            />
-            <span className="text-[11px] font-medium tracking-wide">
-              {isFallingLove ? 'Love Effect' : 'Love Off'}
-            </span>
-          </button>
-        </div>
+      {/* Centerpiece: Authentic Invitation Card with responsive scaling */}
+      <div className="relative w-full flex-1 flex items-center justify-center my-auto min-h-0 py-1">
+        <div className="relative max-w-[390px] w-full max-h-[calc(100dvh-105px)] aspect-[764/1024] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.85)] border border-[#D4AF37]/50 ring-1 ring-[#C8A882]/20">
+          {/* The Exact User-Provided Wedding Invitation Image */}
+          <img 
+            src="/hero_invitation.jpg" 
+            alt="Wedding of Fathimathul Fida ♡ Akhib" 
+            className="w-full h-full object-cover select-none"
+            draggable="false"
+          />
 
-        {/* Subtle shimmering ambient sparkle accents */}
-        <div className="absolute top-[28%] left-[10%] pointer-events-none animate-pulse opacity-60">
-          <span className="text-[#FBF5B7] text-xs">✦</span>
-        </div>
-        <div className="absolute top-[46%] right-[12%] pointer-events-none animate-pulse delay-300 opacity-70">
-          <span className="text-[#D4AF37] text-sm">✦</span>
-        </div>
-        <div className="absolute top-[65%] left-[16%] pointer-events-none animate-pulse delay-700 opacity-60">
-          <span className="text-[#C8A882] text-xs">✧</span>
-        </div>
+          {/* Interactive Button perfectly positioned over original 'Will You Join Us?' */}
+          <div className="absolute bottom-[3.6%] sm:bottom-[4.2%] inset-x-0 flex flex-col items-center justify-center z-20 px-3">
+            {/* Main "Reveal the Date" Button */}
+            <button
+              onClick={onRevealDate}
+              id="hero-reveal-date-btn"
+              type="button"
+              className="group relative flex flex-col items-center focus:outline-none transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+              aria-label="Reveal the Date and view countdown"
+            >
+              {/* Opulent Gold Button */}
+              <div className="px-6 py-2.5 rounded-full bg-[#20130e]/95 hover:bg-[#321c14] text-[#FAF7F2] text-xs sm:text-sm font-serif tracking-widest border border-[#D4AF37] shadow-[0_4px_22px_rgba(212,175,55,0.55)] backdrop-blur-md flex items-center gap-2 transition-all">
+                <Sparkles className="w-3.5 h-3.5 text-[#FBF5B7] animate-pulse" />
+                <span className="gold-shimmer font-semibold uppercase tracking-wider">Reveal the Date</span>
+                <Sparkles className="w-3.5 h-3.5 text-[#FBF5B7] animate-pulse" />
+              </div>
+              <ChevronDown className="w-4 h-4 text-[#D4AF37] animate-bounce mt-1 opacity-90 group-hover:opacity-100" />
+            </button>
 
-        {/* Interactive Clickable Area: "Reveal the Date" and "Falling Love Effect" */}
-        <div className="absolute bottom-4 sm:bottom-6 inset-x-0 flex flex-col items-center justify-center z-20 px-4">
-          {/* Main "Reveal the Date" Button */}
-          <button
-            onClick={onRevealDate}
-            id="hero-reveal-date-btn"
-            type="button"
-            className="group relative flex flex-col items-center focus:outline-none transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
-            aria-label="Reveal the Date and view countdown"
-          >
-            {/* Opulent Gold Button */}
-            <div className="px-6 py-2.5 rounded-full bg-[#2E1A12]/95 hover:bg-[#3E2723] text-[#FAF7F2] text-xs sm:text-sm font-serif tracking-widest border border-[#D4AF37]/80 shadow-[0_4px_18px_rgba(212,175,55,0.4)] backdrop-blur-md flex items-center gap-2 transition-all">
-              <Sparkles className="w-3.5 h-3.5 text-[#FBF5B7] animate-pulse" />
-              <span className="gold-shimmer font-semibold uppercase tracking-wider">Reveal the Date</span>
-              <Sparkles className="w-3.5 h-3.5 text-[#FBF5B7] animate-pulse" />
-            </div>
-            <ChevronDown className="w-4 h-4 text-[#E8D3B0] animate-bounce mt-1 opacity-90 group-hover:opacity-100" />
-          </button>
-
-          {/* Additional Option for Effect Falling Love */}
-          <button
-            onClick={onToggleFallingLove}
-            id="hero-toggle-falling-love-btn"
-            type="button"
-            className="mt-1 px-3 py-0.5 rounded-full bg-[#2A1810]/80 hover:bg-[#3E2723] text-[#FAF7F2] text-[10px] font-sans tracking-wide border border-[#C8A882]/40 shadow-xs backdrop-blur-sm flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer"
-            aria-label="Toggle Falling Love effect"
-          >
-            <Heart 
-              className={`w-2.5 h-2.5 transition-colors ${
-                isFallingLove ? 'text-[#FF69B4] fill-[#FF69B4]' : 'text-[#C8A882]'
-              }`} 
-            />
-            <span className="text-[#E8DDD0]">
-              Effect Falling Love: <strong className={isFallingLove ? 'text-[#FFD1DC]' : 'text-[#8D6E63]'}>{isFallingLove ? 'ON' : 'OFF'}</strong>
-            </span>
-          </button>
+            {/* Additional Option for Effect Falling Love */}
+            <button
+              onClick={onToggleFallingLove}
+              id="hero-toggle-falling-love-btn"
+              type="button"
+              className="mt-0.5 px-3 py-0.5 rounded-full bg-[#180f0a]/85 hover:bg-[#281810] text-[#FAF7F2] text-[10px] font-sans tracking-wide border border-[#C8A882]/40 shadow-xs backdrop-blur-xs flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer"
+              aria-label="Toggle Falling Love effect"
+            >
+              <Heart 
+                className={`w-2.5 h-2.5 transition-colors ${
+                  isFallingLove ? 'text-[#FF69B4] fill-[#FF69B4]' : 'text-[#C8A882]'
+                }`} 
+              />
+              <span className="text-[#E8DDD0]">
+                Effect Falling Love: <strong className={isFallingLove ? 'text-[#FFD1DC]' : 'text-[#8D6E63]'}>{isFallingLove ? 'ON' : 'OFF'}</strong>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Bottom Footer Guidance */}
+      <footer className="w-full max-w-[400px] flex items-center justify-center z-30 pb-0.5 text-center">
+        <button 
+          onClick={onRevealDate}
+          type="button"
+          className="text-[11px] text-[#C8A882]/90 hover:text-[#FAF7F2] tracking-wider transition-colors font-sans flex items-center gap-1.5 cursor-pointer py-1"
+        >
+          <span>Click above to reveal Date & Countdown</span>
+          <span className="text-[#D4AF37]">▾</span>
+        </button>
+      </footer>
     </section>
   );
 }
