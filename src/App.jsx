@@ -16,13 +16,14 @@ export default function App() {
   const [isFallingLove, setIsFallingLove] = useState(true);
   const [loveBurstCount, setLoveBurstCount] = useState(0);
   const [isDatePopped, setIsDatePopped] = useState(false);
+  const [isRevealed, setIsRevealed] = useState(false);
 
   // Activate luxury scroll reveal observer
   useScrollReveal();
 
   const handleRevealDate = () => {
+    setIsRevealed(true);
     setIsDatePopped(true);
-    setIsCountdownModalOpen(true);
     setLoveBurstCount((prev) => prev + 1);
 
     // Trigger celebratory confetti burst
@@ -53,11 +54,13 @@ export default function App() {
       console.warn('Confetti error', e);
     }
 
-    // Also scroll down to itinerary so when modal closes, user is right at the countdown
-    const el = document.getElementById('itinerary');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    // Smoothly scroll down to itinerary section after revealing
+    setTimeout(() => {
+      const el = document.getElementById('itinerary');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 150);
   };
 
   const handleToggleFallingLove = () => {
@@ -89,7 +92,7 @@ export default function App() {
       </div>
 
       {/* Luxury Reading Progress Line pinned to the top of mobile screen */}
-      <LuxuryScrollProgress />
+      {isRevealed && <LuxuryScrollProgress />}
 
       {/* Mobile-First Container (Max-Width 430px centered on desktop) */}
       <main 
@@ -106,27 +109,30 @@ export default function App() {
           onRevealDate={handleRevealDate} 
           isFallingLove={isFallingLove}
           onToggleFallingLove={handleToggleFallingLove}
+          isRevealed={isRevealed}
         />
 
         {/* ========================================================
-            PAGE 2: Date & Time with Countdown & Itinerary
+            PAGE 2 & 3: Revealed only when user clicks "Reveal the Date"
             ======================================================== */}
-        <CountdownItinerarySection 
-          onScrollToAttendance={scrollToAttendance} 
-          isPopped={isDatePopped}
-        />
+        {isRevealed && (
+          <div className="w-full animate-fadeIn">
+            {/* PAGE 2: Date & Time with Countdown & Itinerary */}
+            <CountdownItinerarySection 
+              onScrollToAttendance={scrollToAttendance} 
+              isPopped={isDatePopped}
+            />
 
-        {/* ========================================================
-            PAGE 3: Attendance (Branching: Attending reveals Location;
-            Otherwise reveals Wishing Page)
-            ======================================================== */}
-        <AttendanceSection onOpenQr={() => setIsQrOpen(true)} />
+            {/* PAGE 3: Attendance (Branching: Attending reveals Location; Otherwise reveals Wishing Page) */}
+            <AttendanceSection onOpenQr={() => setIsQrOpen(true)} />
 
-        {/* Extra bottom padding so content isn't obscured by sticky bottom navigation */}
-        <div className="h-16 w-full bg-[#FAF7F2]" />
+            {/* Extra bottom padding so content isn't obscured by sticky bottom navigation */}
+            <div className="h-16 w-full bg-[#FAF7F2]" />
 
-        {/* Clean Sticky Bottom Navigation Bar [Card | Date & Time | Attendance] */}
-        <BottomNav />
+            {/* Clean Sticky Bottom Navigation Bar [Card | Date & Time | Attendance] */}
+            <BottomNav />
+          </div>
+        )}
       </main>
 
       {/* Date & Countdown Pop Modal */}

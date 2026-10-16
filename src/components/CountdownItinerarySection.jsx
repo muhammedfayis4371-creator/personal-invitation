@@ -40,7 +40,7 @@ export default function CountdownItinerarySection({ onScrollToAttendance, isPopp
   return (
     <section 
       id="itinerary" 
-      className={`relative w-full bg-[#FAF7F2] text-[#3E2723] px-6 py-14 border-t border-[#E8DDD0] overflow-hidden select-none transition-all duration-700 ${
+      className={`relative w-full min-h-[100dvh] bg-[#FAF7F2] text-[#3E2723] px-6 py-12 border-t border-[#E8DDD0] overflow-hidden select-none flex flex-col justify-center items-center transition-all duration-700 ${
         isPopped ? 'animate-pop-highlight ring-4 ring-[#D4AF37]/40' : ''
       }`}
     >

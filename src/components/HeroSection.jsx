@@ -10,16 +10,19 @@ export default function HeroSection({
   return (
     <section 
       id="hero" 
-      className="relative w-full overflow-hidden select-none bg-[#261710] flex flex-col items-center"
+      className="relative w-full min-h-[100dvh] h-[100dvh] overflow-hidden select-none bg-[#261710] flex flex-col items-center justify-between"
     >
-      {/* The Exact User-Provided Wedding Invitation Image */}
-      <div className="relative w-full max-w-[430px]">
-        <img 
-          src="/hero_invitation.jpg" 
-          alt="Wedding of Fathimathul Fida ♡ Akhib" 
-          className="w-full h-auto block object-cover select-none"
-          draggable="false"
-        />
+      {/* Container restricted to mobile frame max-w-[430px] */}
+      <div className="relative w-full max-w-[430px] h-full flex flex-col items-center justify-between">
+        {/* The Exact User-Provided Wedding Invitation Image */}
+        <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+          <img 
+            src="/hero_invitation.jpg" 
+            alt="Wedding of Fathimathul Fida ♡ Akhib" 
+            className="w-full h-full object-contain select-none"
+            draggable="false"
+          />
+        </div>
 
         {/* Ambient Nasheed Audio Toggle placed seamlessly at top right */}
         <div className="absolute top-4 right-4 z-20">
@@ -63,7 +66,7 @@ export default function HeroSection({
         </div>
 
         {/* Interactive Clickable Area: "Reveal the Date" and "Falling Love Effect" */}
-        <div className="absolute bottom-[1.8%] inset-x-0 flex flex-col items-center justify-center z-20 px-4">
+        <div className="absolute bottom-4 sm:bottom-6 inset-x-0 flex flex-col items-center justify-center z-20 px-4">
           {/* Main "Reveal the Date" Button */}
           <button
             onClick={onRevealDate}
