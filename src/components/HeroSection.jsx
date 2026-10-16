@@ -46,12 +46,12 @@ export default function HeroSection({ onRevealDate }) {
           aria-label="Reveal the Date and view countdown"
         >
           {/* Opulent Gold Button */}
-          <div className="px-7 py-3 rounded-full bg-[#20120a]/95 hover:bg-[#2f1b10] text-[#FAF7F2] text-xs sm:text-sm font-serif tracking-widest border border-[#D4AF37] shadow-[0_4px_22px_rgba(212,175,55,0.5)] backdrop-blur-md flex items-center gap-2 transition-all">
-            <Sparkles className="w-3.5 h-3.5 text-[#FBF5B7] animate-pulse" />
+          <div className="px-8 py-3.5 sm:px-9 sm:py-4 rounded-full bg-[#20120a]/95 hover:bg-[#2f1b10] text-[#FAF7F2] text-sm sm:text-base font-serif tracking-widest border border-[#D4AF37] shadow-[0_6px_28px_rgba(212,175,55,0.55)] backdrop-blur-md flex items-center gap-2.5 transition-all">
+            <Sparkles className="w-4 h-4 text-[#FBF5B7] animate-pulse" />
             <span className="gold-shimmer font-semibold uppercase tracking-wider">Reveal the Date</span>
-            <Sparkles className="w-3.5 h-3.5 text-[#FBF5B7] animate-pulse" />
+            <Sparkles className="w-4 h-4 text-[#FBF5B7] animate-pulse" />
           </div>
-          <ChevronDown className="w-4 h-4 text-[#D4AF37] animate-bounce mt-1.5 opacity-90 group-hover:opacity-100" />
+          <ChevronDown className="w-5 h-5 text-[#D4AF37] animate-bounce mt-2 opacity-95 group-hover:opacity-100" />
         </button>
       </div>
     </section>
